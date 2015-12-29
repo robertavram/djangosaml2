@@ -25,7 +25,7 @@ setup(
     name='djangosaml2',
     version='0.13.0',
     description='pysaml2 integration in Django',
-    long_description='\n\n'.join([read('README'), read('CHANGES')]),
+    long_description=read('README'),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Web Environment",
@@ -40,7 +40,7 @@ setup(
     keywords="django,pysaml2,saml2,federated authentication,authentication",
     author="Yaco Sistemas",
     author_email="lgs@yaco.es",
-    url="https://bitbucket.org/lgs/djangosaml2",
+    url="https://github.com/robertavram/djangosaml2",
     license='Apache 2.0',
     packages=find_packages(),
     include_package_data=True,
