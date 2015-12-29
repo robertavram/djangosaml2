@@ -243,7 +243,7 @@ def logout(request, config_loader_path=None):
             'The session does not contains the subject id for user %s'
             % request.user)
 
-    result = client.global_logout(subject_id)
+    result = client.global_logout(subject_id, sign=getattr(settings, 'SAML_SIGNED_LOGOUT', False))
 
     state.sync()
 
