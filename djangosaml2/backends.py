@@ -71,7 +71,7 @@ class Saml2Backend(ModelBackend):
             logger.debug('attribute_mapping: %s' % attribute_mapping)
             for saml_attr, django_fields in attribute_mapping.items():
                 if (django_user_main_attribute in django_fields
-                    and saml_attr in attributes):
+                        and saml_attr in attributes):
                     saml_user = attributes[saml_attr][0]
 
         if saml_user is None:
@@ -86,6 +86,8 @@ class Saml2Backend(ModelBackend):
         main_attribute = self.clean_user_main_attribute(saml_user)
 
         user_query_args = {django_user_main_attribute: main_attribute}
+        if django_user_main_attribute != 'username':
+            user_query_args['username'] = main_attribute
 
         # Note that this could be accomplished in one try-except clause, but
         # instead we use get_or_create when creating unknown users since it has
