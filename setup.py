@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup(
     name='djangosaml2',
-    version='0.13.2',
+    version='0.13.3',
     description='pysaml2 integration in Django',
     long_description=read('README'),
     classifiers=[
@@ -38,7 +38,7 @@ setup(
         "Topic :: Software Development :: Libraries :: Application Frameworks",
         ],
     keywords="django,pysaml2,saml2,federated authentication,authentication",
-    author="Yaco Sistemas",
+    author="Robert Avram",
     author_email="robert@ravdev.com",
     url="https://github.com/robertavram/djangosaml2",
     license='Apache 2.0',
