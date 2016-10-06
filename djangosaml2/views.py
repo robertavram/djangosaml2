@@ -1,6 +1,3 @@
-# Copyright (C) 2010-2013 Yaco Sistemas (http://www.yaco.es)
-# Copyright (C) 2009 Lorenzo Gil Sanchez <lorenzo.gil.sanchez@gmail.com>
-#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -304,9 +301,9 @@ def do_logout_service(request, data, binding, config_loader_path=None, next_page
 
     if 'SAMLResponse' in data:  # we started the logout
         logger.debug('Receiving a logout response from the IdP')
-        response = client.parse_logout_request_response(data['SAMLResponse'], binding)
+        #response = client.parse_logout_request_response(data['SAMLResponse'], binding)
         state.sync()
-        return finish_logout(request, response, next_page=next_page)
+        return finish_logout(request, None, next_page=next_page)
 
     elif 'SAMLRequest' in data:  # logout started by the IdP
         logger.debug('Receiving a logout request from the IdP')
@@ -332,15 +329,11 @@ def do_logout_service(request, data, binding, config_loader_path=None, next_page
 
 
 def finish_logout(request, response, next_page=None):
-    if response and response.status_ok():
-        if next_page is None and hasattr(settings, 'LOGOUT_REDIRECT_URL'):
-            next_page = settings.LOGOUT_REDIRECT_URL
-        logger.debug('Performing django_logout with a next_page of %s'
-                     % next_page)
-        return django_logout(request, next_page=next_page)
-    else:
-        logger.error('Unknown error during the logout')
-        return HttpResponse('Error during logout')
+    if next_page is None and hasattr(settings, 'LOGOUT_REDIRECT_URL'):
+        next_page = settings.LOGOUT_REDIRECT_URL
+    logger.debug('Performing django_logout with a next_page of %s'
+                 % next_page)
+    return django_logout(request, next_page=next_page)
 
 
 def metadata(request, config_loader_path=None, valid_for=None):
